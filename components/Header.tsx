@@ -7,7 +7,7 @@ function Header() {
     <header className="w-full h-24 border-b-2 flex px-6">
       <Link href="/" className="w-1/2 h-full flex items-center justify-start">
         <Image src="/next.svg" alt="next.js svg" width={100} height={100} />
-        <h1 className="font-medium ml-2  text-[1.800rem]">BLOG</h1>
+        <h1 className="font-semibold ml-2  text-[1.800rem]">BLOG</h1>
       </Link>
       <Link
         href="https://vercel.com"

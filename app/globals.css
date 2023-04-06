@@ -6,7 +6,7 @@
 pre {
     padding: 15px 20px;
     border-radius: 10px;
-    background-color: #f9f8f981;
+    background-color: #f9f8f9;
     overflow: auto;
     font-size: 0.9rem;
     margin: 40px 0;
@@ -55,7 +55,7 @@ pre {
   article ul {
     list-style: disc;
     padding-left: 1.5rem;
-    margin-top: 20px;
+    margin-top: 50px;
   }
   article ol {
     list-style: decimal;
@@ -69,8 +69,11 @@ pre {
   }
   article a {
     transition: 0.2s ease;
-    text-decoration: underline;
+    color: #0170F2;
     font-size: 1.1rem;
+  }
+  article a:hover {
+    border-bottom: #0170F2 1px solid;
   }
   
   article  code {
@@ -99,9 +102,9 @@ pre {
   
   article img {
     max-width: 100%;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
     box-shadow: 2px 2px 10px  rgba(0, 0, 0, 0.014);
-    border-radius: 10px;
+    border-radius: 20px;
     border: 1px solid #E9E8E9;
   }

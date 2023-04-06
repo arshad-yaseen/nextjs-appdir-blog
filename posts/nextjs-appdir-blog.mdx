@@ -1,0 +1,394 @@
+---
+title: Build a blog app with new Next.js 13 app folder and Contentlayer
+description: Learn how to build a blog app with Next.js 13 app folder and Contentlayer
+date: 2023-4-6
+author: Arshad Yaseen
+---
+
+![intro image](https://i.postimg.cc/sX7F0kRS/Screenshot-2023-04-06-at-11-16-12-PM.png)
+
+### Contents
+
+- Create a Next.js app
+- Create a blog page with [contentlayer](https://contentlayer.dev)
+- Styling the blog
+- Custom components
+- List all posts
+- Highlight codes
+
+### Let's get started!
+
+First, we need to create a new Next.js app with the new app folder feature:
+
+```bash
+npx create-next-app@latest --ts --experimental-app
+```
+
+You can also use `Javascript` instead of `Typescript`. In this tutorial we will use `Typescript`.
+
+Then, you need to install the Contentlayer:
+
+```bash
+npm i contentlayer next-contentlayer @opentelemetry/api
+```
+
+Now, export the `contentlayer` config in the `next.config.js`:
+
+```js
+const { withContentlayer } = require("next-contentlayer");
+
+module.exports = withContentlayer({
+  experimental: { appDir: true },
+});
+```
+
+Now, we need to create a `contentlayer.config.ts` file in the root of the project and add the following code:
+
+```ts
+import { defineDocumentType, makeSource } from "contentlayer/source-files";
+
+const Post = defineDocumentType(() => ({
+  name: "Post",
+  filePathPattern: `**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      description: "The title of the post",
+      required: true,
+    },
+    date: {
+      type: "date",
+      description: "The date of the post",
+      required: true,
+    },
+  },
+  computedFields: {
+    url: {
+      type: "string",
+      resolve: (doc) => `/posts/${doc._raw.flattenedPath}`,
+    },
+  },
+}));
+
+export default makeSource({
+  contentDirPath: "posts",
+  documentTypes: [Post],
+});
+```
+
+Above code is the config for the Contentlayer. It will create a `Post` document type and will generate the `url` field based on the `flattenedPath` field.
+
+You can add more document types and fields such as `Author` and `Category` and more.
+
+Now, we need to create a `posts` folder in the root of the project and create a `hello-world.mdx` file in it and add the following code:
+
+You can name the file whatever you want. In this tutorial, we will use `hello-world.mdx`:
+
+```mdx
+---
+title: How to create Next.js app
+date: 2023-04-06
+---
+
+# Install Next.js
+
+### Fist you need to install Next.js with the following command:
+
+npm i create-next-app@latest
+```
+
+Above code is the `mdx` file. You can use `md` instead of `mdx`. You can add more fields such as `description` and `author` and more.
+
+Then, restart the app with the following command:
+
+```bash
+npm run dev
+```
+
+Now, you can see new `.contentlayer` folder in the root of the project. This folder contains the generated JSON files, types and more.
+
+![generate contentlayer folder](https://i.postimg.cc/nrdVwTLt/Screenshot-2023-04-05-at-6-13-25-PM.png)
+
+We need to install `date-fns` for sorting posts by date and format the date:
+
+```bash
+npm i date-fns
+```
+
+And we need to add the following code in the `tsconfig.json` file:
+
+```ts
+"paths": {
+  "@/*": ["./*"],
+  "contentlayer/generated": ["./.contentlayer/generated"]
+}
+```
+
+Above code is for importing the generated files from the `.contentlayer` folder.
+
+Now, we need to create a `posts` folder in the `app` folder and create a `[slug]` folder in it. and create a `page.tsx` file in `[slug]` folder and add the following code:
+
+`app/posts/[slug]/page.tsx`
+
+```tsx
+import { allPosts } from "contentlayer/generated";
+import { getMDXComponent } from "next-contentlayer/hooks";
+import { format, parseISO } from "date-fns";
+
+export const generateStaticParams = async () =>
+  allPosts.map((post:any) => ({ slug: post._raw.flattenedPath }));
+export const generateMetadata = ({ params }: any) => {
+  const post = allPosts.find(
+    (post: any) => post._raw.flattenedPath === params.slug: any
+  );
+  return { title: post?.title, description: post?.description };
+};
+
+const PostLayout = ({ params }: { params: { slug: string } }) => {
+  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
+
+  let MDXContent;
+
+  if (!post) {
+    return <div>404</div>;
+  } else {
+    MDXContent = getMDXComponent(post!.body.code);
+  }
+
+  return (
+    <div>
+      <h1>{post.title}</h1>
+      <p>{format(parseISO(post.date), "LLLL d, yyyy")}</p>
+      <article>
+        <MDXContent />
+      </article>
+    </div>
+  );
+};
+
+export default PostLayout;
+```
+
+Above code is the page for the blog post. It will render the blog post based on the `slug` parameter.
+
+Now, you can see the blog rendered in the `http://localhost:3000/posts/hello-world`:
+
+![blog rendered](https://i.postimg.cc/vHZ5HHC0/Screenshot-2023-04-05-at-6-34-14-PM.png)
+
+## Styling the blog
+
+Now, we need to style the blog using `CSS` or others. In this tutorial, we will use `CSS`:
+
+`globals.css`
+
+```css
+pre {
+  padding: 15px 20px;
+  border-radius: 10px;
+  background-color: #f9f8f981;
+  overflow: auto;
+  font-size: 0.9rem;
+  margin: 40px 0;
+}
+article p {
+  font-size: 1rem;
+  line-height: 1.8rem;
+  margin-top: 20px;
+}
+article h1 {
+  font-size: 2.5rem;
+  line-height: 3.5rem;
+  margin-top: 60px;
+  font-weight: 425;
+}
+
+...
+```
+
+Get full example css code from [here](https://github.com/arshad-yaseen/portfolio/blob/main/app/globals.css)
+
+Now, you can see the blog styled:
+
+![styled blog](https://i.postimg.cc/0jr5kM57/Screenshot-2023-04-05-at-8-43-24-PM.png)
+
+Also you can use `TailwindCSS` or others.
+
+## Custom components
+
+Custom components is a great feature of `MDX`. You can create your own components and use them in your blog posts.
+
+For example, we can create a `CodeSnippet` component:
+
+`app/posts/[slug]/page.tsx`
+
+```tsx
+import { allPosts } from "contentlayer/generated";
+import { getMDXComponent } from "next-contentlayer/hooks";
+import { format, parseISO } from "date-fns";
+import { Snippet } from "@geist-ui/core";
+
+...
+
+const CodeSnippet = (props: any) => (
+ <Snippet {...props} text={props.text} />
+);
+
+ return (
+    <div>
+      <h1>
+        {post.title}
+      </h1>
+      <p>{format(parseISO(post.date), "LLLL d, yyyy")}</p>
+      <article>
+        <MDXContent components={{ CodeSnippet }} />
+      </article>
+    </div>
+  );
+
+export default PostLayout;
+```
+
+Now, you can use the `CodeSnippet` component in your blog posts:
+
+```mdx
+---
+title: How to create a Next.js app
+date: 2023-04-06
+---
+
+# Install Next.js
+
+### First, install Next.js using the following command:
+
+<CodeSnippet text="npx create-next-app@latest" />
+```
+
+Now, you can see the `CodeSnippet` component in the blog post:
+
+![code snippet](https://i.postimg.cc/MT7756nQ/Screenshot-2023-04-05-at-9-33-21-PM.png)
+
+## List all posts
+
+Now, we need to create a page that lists all posts. For this, we need to create a `posts` folder in the `app` folder and create a `page.tsx` file in it and add the following code:
+
+`app/posts/page.tsx`
+
+```tsx
+import Link from "next/link";
+import { allPosts, Post } from "contentlayer/generated";
+import { compareDesc } from "date-fns";
+
+function PostCard(post: Post) {
+  return (
+    <div>
+      <h2>
+        <Link href={post.url} legacyBehavior>
+          {post.title}
+        </Link>
+      </h2>
+      <p>{post.description}</p>
+    </div>
+  );
+}
+
+function page() {
+  const posts = allPosts.sort((a, b) =>
+    compareDesc(new Date(a.date), new Date(b.date))
+  );
+
+  return (
+    <div>
+      <div>
+        {posts.map((post, idx) => (
+          <PostCard key={idx} {...post} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default page;
+```
+
+Now, you can see the list of all posts in the `http://localhost:3000/posts`:
+
+![list of all posts](https://i.postimg.cc/LsRQMbjL/Screenshot-2023-04-05-at-10-23-37-PM.png)
+
+## Highlight codes
+
+Now, we need to highlight the codes in the blog posts. For this, we will use `rehype-pretty-code`:
+
+```bash
+npm i rehype-pretty-code shiki
+```
+
+Now, we need to add the `rehype-pretty-code` plugin to the `contentlayer.config.ts` file:
+
+`contentlayer.config.ts`
+
+```ts
+import { defineDocumentType, makeSource } from "contentlayer/source-files";
+import rehypePrettyCode from "rehype-pretty-code";
+
+const Post = defineDocumentType(() => ({
+  ...
+}));
+
+const rehypeoptions = {
+    // Use one of Shiki's packaged themes
+    theme: "light-plus",
+    // Set to true to keep the background color
+    keepBackground: true ,
+    onVisitLine(node: any) {
+      if (node.children.length === 0) {
+        node.children = [{ type: "text", value: " " }];
+      }
+    },
+    onVisitHighlightedLine(node: any) {
+      node.properties.className.push("highlighted");
+    },
+    onVisitHighlightedWord(node: any, id: any) {
+      node.properties.className = ["word"];
+    },
+  };
+
+export default makeSource({
+  contentDirPath: "posts",
+  documentTypes: [Post],
+  mdx: {
+    rehypePlugins: [[rehypePrettyCode, rehypeoptions]],
+  },
+});
+
+```
+
+Now, you can see the highlighted codes in the blog posts:
+
+![highlighted codes](https://i.postimg.cc/mrPYKxrm/Screenshot-2023-04-05-at-10-44-36-PM.png)
+
+You can find more information about [rehype-pretty-code](https://rehype-pretty-code.netlify.app/)
+and [Shiki themes](https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes).
+
+Finally you can start building your blog with `Contentlayer` and `Next.js`. The great feature of `Contentlayer` is that Contentlayer will automatically save and refresh the blog when you add a new blog post or edit an existing blog post.
+
+
+## Conclusion
+
+In this tutorial, we have learned how to create a blog using `Next.js`, `Contentlayer`, and `MDX`. We have learned how to create a blog post, how to list all posts, and how to highlight codes in the blog posts.
+
+You can find the source code of the `Contentlayer` blog in the following GitHub repository:
+
+[Source code of example](https://github.com/contentlayerdev/next-contentlayer-example)
+
+## Resources
+
+- [Contentlayer](https://contentlayer.dev/)
+- [Next.js](https://nextjs.org/)
+- [MDX](https://mdxjs.com/)
+- [rehype-pretty-code](https://rehype-pretty-code.netlify.app/)
+- [Shiki themes](https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes)
+
+## About the author
+
+[Arshad Yaseen](https://arshadd.site). I'm a software engineer and I love to create aesthetic frontends. If you have any questions, feel free to ask me on [Twitter](https://twitter.com/arshadyaseeen).

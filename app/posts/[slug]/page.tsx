@@ -1,5 +1,7 @@
 import Header from "@/components/Header";
+import MDXComponents from "@/utils/mdxcomponents";
 import { allPosts } from "contentlayer/generated";
+import { format, parseISO } from "date-fns";
 import { getMDXComponent } from "next-contentlayer/hooks";
 
 export const generateStaticParams = async () =>
@@ -26,13 +28,19 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className="w-full h-screen flex justify-center">
-      <div className="w-[70%] h-full flex flex-col ">
+      <div className="w-[70%] h-fit flex flex-col pb-32 ">
         <Header />
-        <h1>{post.title}</h1>
-        <p>{post.description}</p>
-        <article>
-          <MDXContent />
-        </article>
+        <div className="px-32 flex flex-col items-center">
+          <p className="text-slate-500 mb-4 mt-24">
+            {format(parseISO(post.date), "LLLL d, yyyy")}
+          </p>
+          <h1 className="text-slate-900 text-center text-5xl/snug font-bold">
+            {post.title}
+          </h1>
+          <article>
+            <MDXContent components={{ ...MDXComponents }} />
+          </article>
+        </div>
       </div>
     </div>
   );

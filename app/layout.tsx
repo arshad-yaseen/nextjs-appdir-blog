@@ -2,7 +2,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Next.js App Dir Blog",
-  description: "Blog app with new Next.js 13 app folder and Contentlayer",
+  description: "This is a blog app built with Next.js 13 app folder and Contentlayer. It is a great example of how to use Next.js 13 app folder and Contentlayer together.",
   icons: {
     icon: [
       {
@@ -22,14 +22,14 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Next.js App Dir Blog",
-    description: "Blog app with new Next.js 13 app folder and Contentlayer",
+    description: "This is a blog app built with Next.js 13 app folder and Contentlayer. It is a great example of how to use Next.js 13 app folder and Contentlayer together.",
     siteId: "Next.js App Dir Blog",
     creator: "@arshadyaseeen",
     images: ["/og-image.png"],
   },
   openGraph: {
     title: "Next.js App Dir Blog",
-    description: "Blog app with new Next.js 13 app folder and Contentlayer",
+    description: "This is a blog app built with Next.js 13 app folder and Contentlayer. It is a great example of how to use Next.js 13 app folder and Contentlayer together.",
     type: "website",
     url: "https://nextjs-appdir-blog.vercel.app",
     images: [
