@@ -1,3 +1,107 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+pre {
+    padding: 15px 20px;
+    border-radius: 10px;
+    background-color: #f9f8f981;
+    overflow: auto;
+    font-size: 0.9rem;
+    margin: 40px 0;
+  }
+  article p {
+    font-size: 1rem;
+    line-height: 1.8rem;
+    margin-top: 20px;
+  }
+  article h1 {
+    font-size: 2.5rem;
+    line-height: 3.5rem;
+    margin-top: 60px;
+    font-weight: 525;
+  }
+  article h2 {
+    font-size: 2rem;
+    line-height: 3rem;
+    margin-top: 60px;
+    font-weight: 425;
+  }
+  article h3 {
+    font-size: 1.4rem;
+    line-height: 2.5rem;
+    margin-top: 50px;
+    font-weight: 425;
+  }
+  article h4 {
+    font-size: 1.2rem;
+    line-height: 2rem;
+    margin-top: 30px;
+    font-weight: 425;
+  }
+  article h5 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-top: 30px;
+    line-height: 1.6rem;
+    font-weight: 350;
+  }
+  article h6 {
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+    margin-top: 30px;
+  }
+  article ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-top: 20px;
+  }
+  article ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+    margin-top: 20px;
+  }
+  article li {
+    font-size: 1.1rem;
+    line-height: 1.3rem;
+    margin-top: 20px;
+  }
+  article a {
+    transition: 0.2s ease;
+    text-decoration: underline;
+    font-size: 1.1rem;
+  }
+  
+  article  code {
+    background-color: #F3F3F3;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    border: 1px solid #E9E8E9;
+  }
+  article pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0px;
+    font-size: auto;
+    border: none;
+  }
+  article {
+    font-size: 1.1rem;
+    line-height: 1.8rem;
+    margin-top: 20px;
+    color: #171616;
+  }
+  *::selection{
+    background-color: #E9E9E8;
+  }
+  
+  article img {
+    max-width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    box-shadow: 2px 2px 10px  rgba(0, 0, 0, 0.014);
+    border-radius: 10px;
+    border: 1px solid #E9E8E9;
+  }

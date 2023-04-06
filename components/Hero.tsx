@@ -5,7 +5,7 @@ import { AiFillGithub } from "react-icons/ai";
 function Hero() {
   return (
     <div>
-      <div className="w-full h-14 mt-8 flex items-center justify-center">
+      <div className="w-full h-14 mt-16 flex items-center justify-center">
         <Link
           href="https://github.com/arshad-yaseen/nextjs-appdir-blog"
           target="_blank"
@@ -19,6 +19,9 @@ function Hero() {
         <h1 className="text-6xl text-center text-slate-900 mt-10 font-bold ">
           Next.js 13 app folder <br /> Blog with Contentlayer
         </h1>
+        <p className="text-center text-slate-900" >
+          This is a blog app built with Next.js 13 app folder and Contentlayer. It is a simple blog app with a few posts and a home page. It is a great example of how to use Next.js 13 app folder and Contentlayer together.
+        </p>
       </div>
     </div>
   );
