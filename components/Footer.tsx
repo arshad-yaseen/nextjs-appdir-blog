@@ -4,7 +4,7 @@ import { AiOutlineTwitter, AiFillGithub } from "react-icons/ai";
 
 function Footer() {
   return (
-    <footer className="w-full h-20 border-t flex px-6 absolute bottom-0">
+    <footer className="w-full h-20 border-t lg:flex hidden px-6 absolute bottom-0">
       <div className="w-1/2 h-full flex items-center justify-start">
         <p className="text-sm text-slate-900">
           Powered by{" "}

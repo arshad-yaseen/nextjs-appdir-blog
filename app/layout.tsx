@@ -1,35 +1,39 @@
+import { Metadata } from "next";
 import "./globals.css";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Next.js App Dir Blog",
-  description: "This is a blog app built with Next.js 13 app folder and Contentlayer. It is a great example of how to use Next.js 13 app folder and Contentlayer together.",
+  description:
+    "This is a blog app built with Next.js 13 app folder and Contentlayer. It is a great example of how to use Next.js 13 app folder and Contentlayer together.",
   icons: {
     icon: [
       {
         url: "/favicon.ico",
-        size: "32x32",
+        sizes: "32x32",
       },
       {
         url: "/favicon.ico",
-        size: "16x16",
+        sizes: "16x16",
       },
       {
         url: "/favicon.ico",
-        size: "64x64",
+        sizes: "64x64",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Next.js App Dir Blog",
-    description: "This is a blog app built with Next.js 13 app folder and Contentlayer. It is a great example of how to use Next.js 13 app folder and Contentlayer together.",
+    description:
+      "This is a blog app built with Next.js 13 app folder and Contentlayer. It is a great example of how to use Next.js 13 app folder and Contentlayer together.",
     siteId: "Next.js App Dir Blog",
     creator: "@arshadyaseeen",
     images: ["/og-image.png"],
   },
   openGraph: {
     title: "Next.js App Dir Blog",
-    description: "This is a blog app built with Next.js 13 app folder and Contentlayer. It is a great example of how to use Next.js 13 app folder and Contentlayer together.",
+    description:
+      "This is a blog app built with Next.js 13 app folder and Contentlayer. It is a great example of how to use Next.js 13 app folder and Contentlayer together.",
     type: "website",
     url: "https://nextjs-appdir-blog.vercel.app",
     images: [

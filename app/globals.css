@@ -10,6 +10,7 @@ pre {
     overflow: auto;
     font-size: 0.9rem;
     margin: 40px 0;
+    max-width: 80vw;
   }
   article p {
     font-size: 1rem;
