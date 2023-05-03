@@ -21,4 +21,4 @@ To run the application locally, open your terminal and execute the following com
 
 Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples) by clicking on the button below.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Nutlope/twitterbio&env=OPENAI_API_KEY&project-name=twitter-bio-generator&repo-name=twitterbio)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/arshad-yaseen/nextjs-appdir-blog&project-name=nextjs-appdir-blog&repo-name=nextjs-appdir-blog)
